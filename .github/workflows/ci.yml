@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - development
+  pull_request:
+    branches:
+      - development
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run docker build and push action
+        uses: ./.github/actions/build-push
+        with:
+          image_name: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
