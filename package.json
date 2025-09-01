@@ -12,19 +12,31 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix --max-warnings=-1",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "schema:log": "npx typeorm schema:log -d src/typeorm/dataSource.ts",
+    "schema:check": "ts-node scripts/schema-check.ts",
+    "migration:create": "ts-node-esm node_modules/typeorm/cli.js migration:create src/migrations",
+    "migration:generate": "ts-node-esm node_modules/typeorm/cli.js migration:generate src/migrations/auto -d src/typeorm/dataSource.ts",
+    "migration:run": "ts-node-esm node_modules/typeorm/cli.js migration:run -d src/typeorm/dataSource.ts",
+    "migration:revert": "ts-node-esm node_modules/typeorm/cli.js migration:revert -d src/typeorm/dataSource.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
+    "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/typeorm": "^11.0.0",
+    "class-validator": "^0.14.2",
+    "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "typeorm": "^0.3.26"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
